@@ -43,6 +43,7 @@ class Model:
                 summary[action][D] = np.mean(summary[action][D])
 
             unexp_actions = set(ACTION_LIST) - set(summary.keys())
+            print unexp_actions
             if len(unexp_actions) > 0:
                 decision = random.choice(ACTION_LIST)
                 print decision, '?', '?'

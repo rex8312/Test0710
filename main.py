@@ -6,6 +6,8 @@ import pylab as pl
 from AI import *
 from DataManager import *
 
+VISUAL = False
+
 def update(state):
     _state = [[(list(), list()) for x in range(3)] for y in range(3)]
 
@@ -64,10 +66,11 @@ def game():
     red_player_ai = RedPlayerAI(red_hq)
     blue_player_ai = BluePlayerAI(blue_hq)
 
-    gs = pl.GridSpec(5, 1)
-    state_view = pl.subplot(gs[:3, :])
-    assets_view = pl.subplot(gs[3, :])
-    progress_view = pl.subplot(gs[4, :])
+    if VISUAL:
+        gs = pl.GridSpec(5, 1)
+        state_view = pl.subplot(gs[:3, :])
+        assets_view = pl.subplot(gs[3, :])
+        progress_view = pl.subplot(gs[4, :])
 
     data_manager = DataManager()
     data_manager.reset()
@@ -103,16 +106,19 @@ def game():
         red_asstes, blue_assets = data_manager.evaluate_state(state, red_player_ai, blue_player_ai)
         data_manager.add_sa(tick, red_player_ai, blue_player_ai, state, red_asstes, blue_assets)
         state = update(state)
-        draw(state_view, assets_view, progress_view, state, data_manager)
+        if VISUAL:
+            draw(state_view, assets_view, progress_view, state, data_manager)
         tick += 1
         #print
 
-    pl.pause(3)
+    if VISUAL:
+        pl.pause(3)
     data_manager.save()
     return result
 
 
 if __name__ == '__main__':
-    for i in range(100):
-        pl.ion()
+    for i in range(1000):
+        if VISUAL:
+            pl.ion()
         print game()
