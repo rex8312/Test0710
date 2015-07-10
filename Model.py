@@ -21,7 +21,7 @@ class Model:
         self.conditions = conditions
         self.actions = actions
         self.rewards = rewards
-        self.indexer = NearestNeighbors(n_neighbors=25, algorithm='ball_tree').fit(conditions[:50])
+        self.indexer = NearestNeighbors(n_neighbors=25, algorithm='ball_tree').fit(conditions)
 
     def query(self, q):
         try:
@@ -45,7 +45,7 @@ class Model:
             unexp_actions = set(ACTION_LIST) - set(summary.keys())
             print unexp_actions
             if len(unexp_actions) > 0:
-                decision = random.choice(ACTION_LIST)
+                decision = random.choice(list(unexp_actions))
                 print decision, '?', '?'
             else:
                 decision = summary.keys()[0]

@@ -118,7 +118,7 @@ def game():
 
 
 if __name__ == '__main__':
-    for i in range(1000):
+    while True:
         if VISUAL:
             pl.ion()
         print game()
